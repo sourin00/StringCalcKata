@@ -34,16 +34,11 @@ public class CalculatorTest {
             int firstNwLineInd = s.indexOf('\n');
             delimiter = new StringBuilder(s.substring(2, firstNwLineInd));
             String delimsTxt = delimiter.toString().replace("][", ",");
-            if (delimiter.length()==delimiter.length()){
+            // If ][ not found single delimiter detected
+            if (delimiter.length() == delimiter.length()) {
                 delimiter = new StringBuilder(Pattern.quote(delimsTxt));
-            }else {
-                delimsTxt = delimsTxt.substring(1, delimsTxt.length() - 1);
-                String[] delims = delimsTxt.split(",");
-                delimiter = new StringBuilder();
-                for (String delim : delims) {
-                    delimiter.append(Pattern.quote(delim)).append("|");
-                }
-                delimiter.deleteCharAt(delimiter.length() - 1);
+            } else {
+                delimiter = getMultiDelimiterTxt(delimsTxt);
             }
             s = s.substring(firstNwLineInd + 1);
         } else {
@@ -56,6 +51,7 @@ public class CalculatorTest {
         StringBuilder negativeNumbStr = new StringBuilder("negatives not allowed ");
         for (String number : numbers) {
             String trimmed = number.trim();
+            // skip for spaces
             if (StringUtils.isEmpty(trimmed)) {
                 continue;
             }
@@ -64,6 +60,7 @@ public class CalculatorTest {
                 isNegativeNumber = true;
                 negativeNumbStr.append(num).append(',');
             }
+            // skip for number greater than 1000
             if (num > 1000) {
                 continue;
             }
@@ -73,6 +70,18 @@ public class CalculatorTest {
             throw new Exception(negativeNumbStr.deleteCharAt(negativeNumbStr.length() - 1).toString());
         }
         return sum;
+    }
+
+    private static StringBuilder getMultiDelimiterTxt(String delimsTxt) {
+        StringBuilder delimiter;
+        delimsTxt = delimsTxt.substring(1, delimsTxt.length() - 1);
+        String[] delims = delimsTxt.split(",");
+        delimiter = new StringBuilder();
+        for (String delim : delims) {
+            delimiter.append(Pattern.quote(delim)).append("|");
+        }
+        delimiter.deleteCharAt(delimiter.length() - 1);
+        return delimiter;
     }
 
 }
