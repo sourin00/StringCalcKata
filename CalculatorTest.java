@@ -19,7 +19,13 @@ public class CalculatorTest {
         if (StringUtils.isEmpty(s)) {
             return 0;
         }
-        String[] numbers = s.split("[,\n]");
+        String delimiter;
+        if (s.matches("/{2}[.\n]")) {
+            delimiter = s.substring(1, 3);
+        } else {
+            delimiter = "[,\n]";
+        }
+        String[] numbers = s.split(delimiter);
         int sum = 0;
         for (String number : numbers) {
             String trimmed = number.trim();
