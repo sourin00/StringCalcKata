@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.regex.Pattern;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculatorTest {
@@ -28,8 +30,10 @@ public class CalculatorTest {
 
         String delimiter;
         if (s.startsWith("//")) {
-            delimiter = s.substring(2, 3);
-            s = s.substring(3);
+            int firstNwLineInd = s.indexOf('\n');
+            delimiter = s.substring(2, firstNwLineInd);
+            delimiter = Pattern.quote(delimiter);
+            s = s.substring(firstNwLineInd + 1);
         } else {
             delimiter = "[,\n]";
         }
@@ -48,7 +52,7 @@ public class CalculatorTest {
                 isNegativeNumber = true;
                 negativeNumbStr.append(num).append(',');
             }
-            if (num > 1000){
+            if (num > 1000) {
                 continue;
             }
             sum += num;
