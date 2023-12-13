@@ -17,6 +17,7 @@ public class CalculatorTest {
         assertTrue(e1.getMessage().contains("negatives not allowed -1"));
         Exception e2 = assertThrows(Exception.class, () -> CalculatorTest.sum("-1,-2,-3"));
         assertTrue(e2.getMessage().contains("negatives not allowed -1,-2,-3"));
+        assertEquals(2, CalculatorTest.sum("1001,2"));
     }
 
     private static int sum(String s) throws Exception {
