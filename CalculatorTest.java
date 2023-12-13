@@ -17,9 +17,12 @@ public class CalculatorTest {
             return 0;
         }
         String[] numbers = s.split(",");
-        int num1 = Integer.parseInt(numbers[0]);
-        int num2 = Integer.parseInt(numbers[1]);
-        return num1 + num2;
+        int sum = 0;
+        for (String number : numbers) {
+            int num = Integer.parseInt(number);
+            sum += num;
+        }
+        return sum;
     }
 
 }
