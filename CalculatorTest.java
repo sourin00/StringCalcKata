@@ -9,4 +9,8 @@ public class CalculatorTest {
         assertEquals(0, CalculatorTest.sum(""));
     }
 
+    private static int sum(String s) {
+        return 0;
+    }
+
 }
