@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 import org.apache.commons.lang3.StringUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CalculatorTest {
 
@@ -13,6 +14,7 @@ public class CalculatorTest {
         assertEquals(6, CalculatorTest.sum("1\n3,2"));
         assertEquals(6, CalculatorTest.sum("1\n3,2\n "));
         assertEquals(6, CalculatorTest.sum("//;\n1;3;2; "));
+        assertThrows(Exception.class, () -> CalculatorTest.sum("-1"), "negatives not allowed -1");
     }
 
     private static int sum(String s) {
