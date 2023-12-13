@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class CalculatorTest {
 
     @Test
-    public void testCalculator() {
+    public void testCalculator() throws Exception {
         assertEquals(0, CalculatorTest.sum(""));
         assertEquals(1, CalculatorTest.sum("1"));
         assertEquals(3, CalculatorTest.sum("1,2"));
@@ -17,7 +17,7 @@ public class CalculatorTest {
         assertThrows(Exception.class, () -> CalculatorTest.sum("-1"), "negatives not allowed -1");
     }
 
-    private static int sum(String s) {
+    private static int sum(String s) throws Exception {
         if (StringUtils.isEmpty(s)) {
             return 0;
         }
@@ -38,6 +38,7 @@ public class CalculatorTest {
                 continue;
             }
             int num = Integer.parseInt(trimmed);
+            if (num < 0) throw new Exception("negatives not allowed " + num);
             sum += num;
         }
         return sum;
