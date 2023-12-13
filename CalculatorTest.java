@@ -21,7 +21,9 @@ public class CalculatorTest {
         String[] numbers = s.split("[,\n]");
         int sum = 0;
         for (String number : numbers) {
-            int num = Integer.parseInt(number);
+            String trimmed = number.trim();
+            if (StringUtils.isEmpty(trimmed)) continue;
+            int num = Integer.parseInt(trimmed);
             sum += num;
         }
         return sum;
