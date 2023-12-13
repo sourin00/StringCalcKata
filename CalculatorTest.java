@@ -34,14 +34,22 @@ public class CalculatorTest {
 
         String[] numbers = s.split(delimiter);
         int sum = 0;
+        boolean isNegativeNumber = false;
+        StringBuilder negativeNumbStr = new StringBuilder("negatives not allowed ");
         for (String number : numbers) {
             String trimmed = number.trim();
             if (StringUtils.isEmpty(trimmed)) {
                 continue;
             }
             int num = Integer.parseInt(trimmed);
-            if (num < 0) throw new Exception("negatives not allowed " + num);
+            if (num < 0) {
+                isNegativeNumber = true;
+                negativeNumbStr.append(num).append(',');
+            }
             sum += num;
+        }
+        if (isNegativeNumber) {
+            throw new Exception(negativeNumbStr.deleteCharAt(negativeNumbStr.length() - 1).toString());
         }
         return sum;
     }
