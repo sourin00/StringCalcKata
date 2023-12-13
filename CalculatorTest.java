@@ -12,24 +12,29 @@ public class CalculatorTest {
         assertEquals(3, CalculatorTest.sum("1,2"));
         assertEquals(6, CalculatorTest.sum("1\n3,2"));
         assertEquals(6, CalculatorTest.sum("1\n3,2\n "));
-        assertEquals(6, CalculatorTest.sum("//;\n1\n3,2\n "));
+        assertEquals(6, CalculatorTest.sum("//;\n1;3;2; "));
     }
 
     private static int sum(String s) {
         if (StringUtils.isEmpty(s)) {
             return 0;
         }
+
         String delimiter;
-        if (s.matches("/{2}[.\n]")) {
-            delimiter = s.substring(1, 3);
+        if (s.startsWith("//")) {
+            delimiter = s.substring(2, 3);
+            s = s.substring(3);
         } else {
             delimiter = "[,\n]";
         }
+
         String[] numbers = s.split(delimiter);
         int sum = 0;
         for (String number : numbers) {
             String trimmed = number.trim();
-            if (StringUtils.isEmpty(trimmed)) continue;
+            if (StringUtils.isEmpty(trimmed)) {
+                continue;
+            }
             int num = Integer.parseInt(trimmed);
             sum += num;
         }
