@@ -1,8 +1,7 @@
 import org.junit.jupiter.api.Test;
 import org.apache.commons.lang3.StringUtils;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculatorTest {
 
@@ -14,7 +13,10 @@ public class CalculatorTest {
         assertEquals(6, CalculatorTest.sum("1\n3,2"));
         assertEquals(6, CalculatorTest.sum("1\n3,2\n "));
         assertEquals(6, CalculatorTest.sum("//;\n1;3;2; "));
-        assertThrows(Exception.class, () -> CalculatorTest.sum("-1"), "negatives not allowed -1");
+        Exception e1 = assertThrows(Exception.class, () -> CalculatorTest.sum("-1"));
+        assertTrue(e1.getMessage().contains("negatives not allowed -1"));
+        Exception e2 = assertThrows(Exception.class, () -> CalculatorTest.sum("-1,-2,-3"));
+        assertTrue(e2.getMessage().contains("negatives not allowed -1,-2,-3"));
     }
 
     private static int sum(String s) throws Exception {
