@@ -12,6 +12,7 @@ public class CalculatorTest {
         assertEquals(3, CalculatorTest.sum("1,2"));
         assertEquals(6, CalculatorTest.sum("1\n3,2"));
         assertEquals(6, CalculatorTest.sum("1\n3,2\n "));
+        assertEquals(6, CalculatorTest.sum("//;\n1\n3,2\n "));
     }
 
     private static int sum(String s) {
