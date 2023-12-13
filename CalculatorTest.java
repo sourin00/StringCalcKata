@@ -17,7 +17,7 @@ public class CalculatorTest {
         if (StringUtils.isEmpty(s)) {
             return 0;
         }
-        String[] numbers = s.split(",");
+        String[] numbers = s.split("[,\n]");
         int sum = 0;
         for (String number : numbers) {
             int num = Integer.parseInt(number);
