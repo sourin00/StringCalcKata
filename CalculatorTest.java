@@ -29,17 +29,28 @@ public class CalculatorTest {
             return 0;
         }
 
-        String delimiter;
+        StringBuilder delimiter;
         if (s.startsWith("//")) {
             int firstNwLineInd = s.indexOf('\n');
-            delimiter = s.substring(2, firstNwLineInd);
-            delimiter = Pattern.quote(delimiter);
+            delimiter = new StringBuilder(s.substring(2, firstNwLineInd));
+            String delimsTxt = delimiter.toString().replace("][", ",");
+            if (delimiter.length()==delimiter.length()){
+                delimiter = new StringBuilder(Pattern.quote(delimsTxt));
+            }else {
+                delimsTxt = delimsTxt.substring(1, delimsTxt.length() - 1);
+                String[] delims = delimsTxt.split(",");
+                delimiter = new StringBuilder();
+                for (String delim : delims) {
+                    delimiter.append(Pattern.quote(delim)).append("|");
+                }
+                delimiter.deleteCharAt(delimiter.length() - 1);
+            }
             s = s.substring(firstNwLineInd + 1);
         } else {
-            delimiter = "[,\n]";
+            delimiter = new StringBuilder(",\n");
         }
 
-        String[] numbers = s.split(delimiter);
+        String[] numbers = s.split("[" + delimiter + "]");
         int sum = 0;
         boolean isNegativeNumber = false;
         StringBuilder negativeNumbStr = new StringBuilder("negatives not allowed ");
