@@ -16,8 +16,10 @@ public class CalculatorTest {
         if (StringUtils.isEmpty(s)) {
             return 0;
         }
-        int num = Integer.parseInt(s);
-        return num;
+        String[] numbers = s.split(",");
+        int num1 = Integer.parseInt(numbers[0]);
+        int num2 = Integer.parseInt(numbers[1]);
+        return num1 + num2;
     }
 
 }
